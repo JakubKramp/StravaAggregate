@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy.exc import IntegrityError
 
-from aggregator import db
-from aggregator.users.models import User
+from app import db
+from aggregator.models import User
 
 users_blueprint = Blueprint('users', __name__, url_prefix='/users')
 
@@ -15,4 +15,4 @@ def signup():
         db.session.commit()
     except IntegrityError:
         return jsonify({'error': 'Username taken'})
-    return jsonify({'username': user.username})
+    return jsonify({'username': user.email})
